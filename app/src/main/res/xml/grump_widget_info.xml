@@ -1,0 +1,7 @@
+<appwidget-provider xmlns:android="http://schemas.android.com/apk/res/android"
+    android:minWidth="140dp" android:minHeight="180dp"
+    android:minResizeWidth="140dp" android:minResizeHeight="180dp"
+    android:targetCellWidth="2" android:targetCellHeight="2"
+    android:updatePeriodMillis="0" android:initialLayout="@layout/grump_widget"
+    android:previewLayout="@layout/grump_widget" android:description="@string/widget_description"
+    android:resizeMode="horizontal|vertical" android:widgetCategory="home_screen" />
