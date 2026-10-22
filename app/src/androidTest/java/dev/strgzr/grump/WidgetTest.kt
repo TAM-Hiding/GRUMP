@@ -71,7 +71,8 @@ class WidgetTest {
                         root.layout(0, 0, width, height)
                         val bubble = root.findViewById<TextView>(R.id.comment)
                         assertEquals(CommentEngine.comments[index].text, bubble.text.toString())
-                        assertTrue("Clipped comment $index at font scale $scale",
+                        assertTrue("Clipped comment $index at font scale $scale: text=${bubble.textSize}px, " +
+                                "layout=${bubble.layout.height}px, available=${bubble.height - bubble.compoundPaddingTop - bubble.compoundPaddingBottom}px",
                             bubble.layout.height <= bubble.height - bubble.compoundPaddingTop - bubble.compoundPaddingBottom)
                         assertEquals(bubble.text.length, bubble.layout.getLineEnd(bubble.layout.lineCount - 1))
                     }
