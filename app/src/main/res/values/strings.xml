@@ -1,0 +1,8 @@
+<resources>
+    <string name="app_name">GRUMP</string>
+    <string name="widget_description">A small, disappointed goblin. Tap for offline sarcasm.</string>
+    <string name="idle_comment">I was enjoying the silence.</string>
+    <string name="poke_grump">Poke GRUMP for another comment</string>
+    <string name="grump_reaction">GRUMP, %1$s. Tap for another comment.</string>
+    <string name="instructions">General Response Unit for Media Pessimism\n\nv0.1.0 · Offline and unimpressed\n\n1. Return to your home screen.\n2. Long-press an empty area and choose Widgets.\n3. Find GRUMP and drag him home.\n4. Tap him. Regret interrupting him.\n\nResize by long-pressing the widget and dragging its handles. If you use large text, give him extra room.\n\n100 comments. No account. No internet. No background polling. Each GRUMP has his own mood.\n\nHis bubble stays until you poke him again. He has nowhere else to be.</string>
+</resources>

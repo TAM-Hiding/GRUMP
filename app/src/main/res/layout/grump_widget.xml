@@ -1,0 +1,13 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/widget_root" android:layout_width="match_parent" android:layout_height="match_parent"
+    android:orientation="vertical" android:gravity="center" android:padding="4dp">
+    <TextView android:id="@+id/comment" android:layout_width="match_parent" android:layout_height="0dp"
+        android:layout_weight="1" android:background="@drawable/speech_bubble"
+        android:text="@string/idle_comment" android:textColor="#202C24" android:textSize="13sp"
+        android:autoSizeTextType="uniform" android:autoSizeMinTextSize="7sp"
+        android:autoSizeMaxTextSize="13sp" android:autoSizeStepGranularity="1sp"
+        android:gravity="center" android:fontFamily="sans-serif-medium" />
+    <ImageView android:id="@+id/creature" android:layout_width="match_parent" android:layout_height="64dp"
+        android:src="@drawable/grump_idle" android:scaleType="fitCenter"
+        android:contentDescription="@string/poke_grump" />
+</LinearLayout>
