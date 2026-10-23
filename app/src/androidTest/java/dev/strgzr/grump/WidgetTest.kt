@@ -167,6 +167,12 @@ class WidgetTest {
                     }
                 }
             }
+            // connectedDebugAndroidTest uninstalls the app after instrumentation,
+            // removing app-specific external storage before the next CI command.
+            // Copy while instrumentation is alive to shell-owned test output.
+            val descriptor = instrumentation.uiAutomation.executeShellCommand(
+                "cp -R ${output.absolutePath} /data/local/tmp/grump-widget-previews")
+            android.os.ParcelFileDescriptor.AutoCloseInputStream(descriptor).use { it.readBytes() }
         } finally { prefs.delete(id) }
     }
 

@@ -77,7 +77,7 @@ jobs:
             adb install -r app/build/outputs/apk/debug/app-debug.apk
             adb shell appwidget grantbind --package dev.strgzr.grump
             ./gradlew --no-daemon :app:connectedDebugAndroidTest
-            adb pull /sdcard/Android/data/dev.strgzr.grump/files/widget-previews app/build/widget-previews
+            adb pull /data/local/tmp/grump-widget-previews app/build/widget-previews
       - name: Upload emulator reports
         if: always()
         uses: actions/upload-artifact@v4
