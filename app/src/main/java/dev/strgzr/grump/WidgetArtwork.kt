@@ -31,14 +31,20 @@ internal object WidgetArtwork {
 
     fun apply(context: Context, views: RemoteViews, expression: Expression, size: SizeF) {
         val pose = pose(expression)
-        val width = (size.width - 8f).coerceAtLeast(100f)
-        val height = (size.height - 8f).coerceAtLeast(120f)
+        val density = context.resources.displayMetrics.density
+        // Account for each independently rounded 4dp root padding. Subtracting
+        // 8dp before conversion can over-allocate two pixels on fractional densities.
+        val paddingPx = (4f * density + .5f).toInt()
+        val widthPx = ((size.width * density).toInt() - 2 * paddingPx).coerceAtLeast(1)
+        val height = ((size.height * density).toInt() - 2 * paddingPx).coerceAtLeast(1) / density
         // Separate silhouette and text regions guarantee no face/ear overlap. The
         // full canvas shares one feet baseline, with no pose-dependent bubble movement.
-        val creatureWidth = width * .48f
-        val bubbleWidth = width - creatureWidth
-        views.setViewLayoutWidth(R.id.creature, creatureWidth, android.util.TypedValue.COMPLEX_UNIT_DIP)
-        views.setViewLayoutWidth(R.id.bubble, bubbleWidth, android.util.TypedValue.COMPLEX_UNIT_DIP)
+        val creaturePx = (widthPx * .48f).toInt()
+        val bubblePx = widthPx - creaturePx
+        val creatureWidth = creaturePx / density
+        val bubbleWidth = bubblePx / density
+        views.setViewLayoutWidth(R.id.creature, creaturePx.toFloat(), android.util.TypedValue.COMPLEX_UNIT_PX)
+        views.setViewLayoutWidth(R.id.bubble, bubblePx.toFloat(), android.util.TypedValue.COMPLEX_UNIT_PX)
         // Trim only transparent gutters at runtime so narrow upright drawings use
         // their available space. All source pixels and 12px clearance are retained.
         val sprite = sprites.get(expression) ?: run {

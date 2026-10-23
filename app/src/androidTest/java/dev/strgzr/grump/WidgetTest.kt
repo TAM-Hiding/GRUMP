@@ -152,7 +152,7 @@ class WidgetTest {
                         root.layout(0, 0, w, h)
                         val creature = root.findViewById<ImageView>(R.id.creature)
                         val bubble = root.findViewById<View>(R.id.bubble)
-                        assertTrue("Silhouette and bubble regions overlap", creature.right <= bubble.left + 1)
+                        assertTrue("Overlapping regions at $size: creature right=${creature.right}, bubble left=${bubble.left}", creature.right <= bubble.left)
                         val text = root.findViewById<TextView>(R.id.comment)
                         assertTrue(text.layout.height <= text.height - text.compoundPaddingTop - text.compoundPaddingBottom)
                         for ((background, color) in listOf("light" to Color.rgb(232, 228, 216), "dark" to Color.rgb(30, 37, 33))) {
