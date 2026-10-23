@@ -13,6 +13,9 @@ import android.widget.RemoteViews
 
 /** Rendering only. Comment selection and persistent mood IDs do not depend on artwork. */
 internal object WidgetArtwork {
+    // Responsive RemoteViews variants reuse one bitmap instead of duplicating its
+    // pixel buffer for each launcher size. Keep only the two most recent poses.
+    private val sprites = android.util.LruCache<Expression, Bitmap>(2)
     // Canvas head anchors from art/production/full-body/extraction.json. Keeping this
     // adjustment with the pose makes the long forward lean explicit and maintainable.
     private data class Pose(val image: Int, val left: Int, val width: Int,
@@ -38,10 +41,14 @@ internal object WidgetArtwork {
         views.setViewLayoutWidth(R.id.bubble, bubbleWidth, android.util.TypedValue.COMPLEX_UNIT_DIP)
         // Trim only transparent gutters at runtime so narrow upright drawings use
         // their available space. All source pixels and 12px clearance are retained.
-        val source = BitmapFactory.decodeResource(context.resources, pose.image)
-        val sprite = Bitmap.createBitmap(source, pose.left, pose.top, pose.width, pose.height)
+        val sprite = sprites.get(expression) ?: run {
+            val source = BitmapFactory.decodeResource(context.resources, pose.image)
+            val cropped = Bitmap.createBitmap(source, pose.left, pose.top, pose.width, pose.height)
+            if (source !== cropped) source.recycle()
+            sprites.put(expression, cropped)
+            cropped
+        }
         views.setImageViewBitmap(R.id.creature, sprite)
-        if (source !== sprite) source.recycle()
         val scale = minOf(creatureWidth / pose.width, height / pose.height)
         val headY = height - pose.height * scale + pose.headY * scale
         views.setImageViewBitmap(R.id.bubble_art, bubble(context, bubbleWidth, height, headY))

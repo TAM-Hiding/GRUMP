@@ -25,6 +25,8 @@ jobs:
       - uses: gradle/actions/setup-gradle@v4
       - name: Install SDK
         run: sdkmanager 'platforms;android-36' 'build-tools;36.0.0'
+      - name: Validate approved artwork and source integrity
+        run: python3 scripts/validate_full_body_assets.py
       - name: Validate Gradle wrapper
         uses: gradle/actions/wrapper-validation@v4
       - name: Build, unit tests and lint
