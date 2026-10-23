@@ -1,6 +1,6 @@
 # WO #002 — production artwork request
 
-**Status: character integration stopped; replacement asset pack required.** The approved design remains authoritative. This request concerns asset preparation, not character redesign.
+**Status: resolved by the approved transparent replacement `2515.png`. This document preserves the earlier request and requirements for future replacements. See [the production record](../art/production/README.md).** The approved design remains authoritative. This request concerns asset preparation, not character redesign.
 
 ## Source assessment
 
@@ -55,4 +55,4 @@ If separate files cannot be supplied, provide one high-resolution sheet with six
 5. Preserve the current rounded bubble, colors, centered readable text, and tap interactions. Stay within launcher widget boundaries.
 6. Run build/resource checks and interaction/layout validation. Open a reviewable PR and obtain approval before merging.
 
-Until these inputs pass inspection, keep the working v0.1 implementation and version number. This documentation-only preparation is not the v0.2.0 release.
+The replacement artwork has now passed alpha and visual inspection. v0.2.0 integrates all six portraits and preserves the full-body asset. Keep these gates for future artwork changes.

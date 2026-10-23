@@ -1,5 +1,9 @@
 package dev.strgzr.grump
 
+import android.graphics.BitmapFactory
+import android.graphics.Color
+import android.widget.ImageView
+import android.graphics.drawable.BitmapDrawable
 import android.appwidget.AppWidgetHost
 import android.appwidget.AppWidgetManager
 import android.content.ComponentName
@@ -29,7 +33,7 @@ class WidgetTest {
             ids.forEach { assertTrue("CI must grant appwidget bind permission", manager.bindAppWidgetIdIfAllowed(it, component)) }
             val prefs = GrumpPreferences(context)
             ids.forEach(prefs::delete)
-            repeat(9) { iteration ->
+            repeat(12) {
                 val before = prefs.read(ids[0])
                 instrumentation.runOnMainSync {
                     val view = GrumpWidgetProvider.views(context, ids[0]).apply(context, FrameLayout(context))
@@ -38,7 +42,9 @@ class WidgetTest {
                 val deadline = System.nanoTime() + 3_000_000_000L
                 while (prefs.read(ids[0]) == before && System.nanoTime() < deadline) Thread.sleep(20)
                 val after = prefs.read(ids[0])
-                assertEquals((iteration + 1) % 3, after.expression)
+                assertNotEquals(before.expression, after.expression)
+                assertEquals(Expression.forComment(CommentEngine.comments[after.commentIndex],
+                    Expression.entries[before.expression]).ordinal, after.expression)
                 assertTrue(after.commentIndex in CommentEngine.comments.indices)
                 assertNotEquals(before.commentIndex, after.commentIndex)
                 assertEquals(WidgetState(), prefs.read(ids[1]))
@@ -50,6 +56,41 @@ class WidgetTest {
             ids.forEach { host.deleteAppWidgetId(it); GrumpPreferences(context).delete(it) }
             host.deleteHost()
         }
+    }
+
+
+    @Test fun allSixPngExpressionsRenderWithTransparentPadding() {
+        val sprites = intArrayOf(R.drawable.grump_idle, R.drawable.grump_annoyed,
+            R.drawable.grump_exasperated, R.drawable.grump_suspicious,
+            R.drawable.grump_impressed, R.drawable.grump_unimpressed)
+        val id = -726
+        val prefs = GrumpPreferences(context)
+        try {
+            sprites.forEachIndexed { expression, resource ->
+                val bitmap = BitmapFactory.decodeResource(context.resources, resource)
+                assertNotNull(bitmap)
+                assertEquals(512, bitmap.width)
+                assertEquals(512, bitmap.height)
+                assertTrue(bitmap.hasAlpha())
+                for (pixel in 0 until 512) {
+                    assertEquals(0, Color.alpha(bitmap.getPixel(pixel, 0)))
+                    assertEquals(0, Color.alpha(bitmap.getPixel(pixel, 511)))
+                    assertEquals(0, Color.alpha(bitmap.getPixel(0, pixel)))
+                    assertEquals(0, Color.alpha(bitmap.getPixel(511, pixel)))
+                }
+                prefs.write(id, WidgetState(0, expression))
+                instrumentation.runOnMainSync {
+                    val root = GrumpWidgetProvider.views(context, id).apply(context, FrameLayout(context))
+                    val shown = (root.findViewById<ImageView>(R.id.creature).drawable as BitmapDrawable).bitmap
+                    assertTrue("Wrong portrait for expression $expression", bitmap.sameAs(shown))
+                }
+                assertEquals(expression, GrumpPreferences(context).read(id).expression)
+            }
+            val fullbody = BitmapFactory.decodeResource(context.resources, R.drawable.grump_fullbody)
+            assertEquals(512, fullbody.width)
+            assertEquals(1024, fullbody.height)
+            assertTrue(fullbody.hasAlpha())
+        } finally { prefs.delete(id) }
     }
 
     @Test fun allBubblesFitMinimumSizeAtNormalAndLargeFont() {
@@ -64,7 +105,7 @@ class WidgetTest {
                 val testId = -725
                 try {
                     for (index in CommentEngine.comments.indices) {
-                        prefs.write(testId, WidgetState(index, index % 3))
+                        prefs.write(testId, WidgetState(index, index % Expression.entries.size))
                         val root = GrumpWidgetProvider.views(sizedContext, testId).apply(sizedContext, FrameLayout(sizedContext))
                         root.measure(View.MeasureSpec.makeMeasureSpec(width, View.MeasureSpec.EXACTLY),
                             View.MeasureSpec.makeMeasureSpec(height, View.MeasureSpec.EXACTLY))

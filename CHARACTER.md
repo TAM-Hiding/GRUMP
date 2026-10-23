@@ -60,9 +60,13 @@ Do not reinterpret him as cute, cheerful, conventionally heroic, or primarily an
 
 Use aligned head-and-shoulders assets for the widget. Reserve `grump_fullbody.png` for reference and future app screens. Preserve both ears, the character's aspect ratio, the existing bubble, and the working tap behavior. Simple image swapping is sufficient.
 
-## Production gate
+## Production assets and future replacement gate
 
-WO #002 character integration is **blocked pending clean production assets**. None of the seven PNGs above is integrated. The existing v0.1 artwork and behavior remain the baseline; this documentation does not constitute v0.2.0.
+WO #002 now uses the approved transparent replacement sheet supplied as `2515.png` (byte-identical to `1792716991184.png`). SHA-256: `d9bf6e66242273b014ced41e12b744caed66f7817d2382ec567a56455c51feb6`.
+
+Six aligned 512×512 PNGs are integrated under `app/src/main/res/drawable-nodpi/`; `grump_fullbody.png` is a 512×1024 reference/resource. The untouched production source is archived under `art/source/`. Extraction and alpha validation are described in [the asset record](art/production/README.md). The layout, bubble colors, offline library, and PendingIntent interaction architecture are preserved.
+
+Waiting uses idle; technology/science use skepticism, corporate comments mild irritation, politics/general humanity disappointment, and existential comments a sigh. Three existing positive humanity comments allow reluctant admiration. Repeated preferred reactions fall back to a different weary pose, so every tap visibly reacts. Original v0.1 mood IDs remain valid.
 
 Follow [the production asset request](docs/ART_ASSET_REQUEST.md). If any required expression cannot be separated cleanly, stop integration of the entire set. Do not substitute artwork, reconstruct facial details, clip ears, or ship inconsistent crops. Ask the user for purpose-built assets. Do not merge incomplete character integration.
 

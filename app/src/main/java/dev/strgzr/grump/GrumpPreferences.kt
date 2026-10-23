@@ -10,7 +10,7 @@ class GrumpPreferences(context: Context) {
 
     fun read(id: Int) = WidgetState(
         prefs.getInt("${id}_comment", -1),
-        prefs.getInt("${id}_expression", 0).coerceIn(0, 2)
+        prefs.getInt("${id}_expression", 0).coerceIn(0, Expression.entries.lastIndex)
     )
 
     fun write(id: Int, state: WidgetState) {
