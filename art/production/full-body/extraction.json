@@ -1,0 +1,211 @@
+{
+  "canvas": [
+    512,
+    768
+  ],
+  "feet_baseline": 756,
+  "poses": {
+    "idle": {
+      "source": "03-2527.png",
+      "sha256": "6465e9a2757c4ed6523c47c6a71dbfee4023cb4c9b9c80df97622b4d30776338",
+      "source_size": [
+        1024,
+        1536
+      ],
+      "source_alpha": [
+        0,
+        254
+      ],
+      "transparent_pixels": 847582,
+      "source_region": null,
+      "crop": [
+        148,
+        24,
+        899,
+        1493
+      ],
+      "scale": 0.5064669843430906,
+      "offset": [
+        66,
+        12
+      ],
+      "runtime_bounds": [
+        66,
+        12,
+        446,
+        756
+      ],
+      "head_y": 138
+    },
+    "annoyed": {
+      "source": "02-2526.png",
+      "sha256": "e36c837915a4d852e28468b75429134baf3af6e0eba5994b41f74909b182ff61",
+      "source_size": [
+        1536,
+        1024
+      ],
+      "source_alpha": [
+        0,
+        254
+      ],
+      "transparent_pixels": 920294,
+      "source_region": [
+        0,
+        0,
+        810,
+        1024
+      ],
+      "crop": [
+        142,
+        11,
+        777,
+        996
+      ],
+      "scale": 0.7553299492385787,
+      "offset": [
+        16,
+        12
+      ],
+      "runtime_bounds": [
+        16,
+        12,
+        496,
+        756
+      ],
+      "head_y": 138
+    },
+    "exasperated": {
+      "source": "02-2526.png",
+      "sha256": "e36c837915a4d852e28468b75429134baf3af6e0eba5994b41f74909b182ff61",
+      "source_size": [
+        1536,
+        1024
+      ],
+      "source_alpha": [
+        0,
+        254
+      ],
+      "transparent_pixels": 920294,
+      "source_region": [
+        810,
+        0,
+        1536,
+        1024
+      ],
+      "crop": [
+        32,
+        14,
+        629,
+        1015
+      ],
+      "scale": 0.7432567432567433,
+      "offset": [
+        34,
+        12
+      ],
+      "runtime_bounds": [
+        34,
+        12,
+        478,
+        756
+      ],
+      "head_y": 138
+    },
+    "suspicious": {
+      "source": "04-2528.png",
+      "sha256": "d0062c7e421d5a723fb15aeb89b9b4cbc7cf6848a3634f7973ac79bc98a3b209",
+      "source_size": [
+        1374,
+        1145
+      ],
+      "source_alpha": [
+        0,
+        255
+      ],
+      "transparent_pixels": 868782,
+      "source_region": null,
+      "crop": [
+        139,
+        0,
+        1317,
+        1145
+      ],
+      "scale": 0.4142614601018676,
+      "offset": [
+        12,
+        282
+      ],
+      "runtime_bounds": [
+        12,
+        282,
+        500,
+        756
+      ],
+      "head_y": 363
+    },
+    "impressed": {
+      "source": "01-2525.png",
+      "sha256": "f8687b7ea45199bb28e600155b05c8f31caca55f9bf2ff1ce5bcb966ea79e249",
+      "source_size": [
+        1024,
+        1536
+      ],
+      "source_alpha": [
+        0,
+        254
+      ],
+      "transparent_pixels": 967385,
+      "source_region": null,
+      "crop": [
+        199,
+        3,
+        813,
+        1533
+      ],
+      "scale": 0.48627450980392156,
+      "offset": [
+        106,
+        12
+      ],
+      "runtime_bounds": [
+        106,
+        12,
+        405,
+        756
+      ],
+      "head_y": 138
+    },
+    "unimpressed": {
+      "source": "05-2529.png",
+      "sha256": "8ebc71e78197ca7ac13694064e712d7c3118a947b72b418bb4ead1d004a110b3",
+      "source_size": [
+        1024,
+        1536
+      ],
+      "source_alpha": [
+        0,
+        254
+      ],
+      "transparent_pixels": 795856,
+      "source_region": null,
+      "crop": [
+        125,
+        4,
+        1013,
+        1514
+      ],
+      "scale": 0.49271523178807947,
+      "offset": [
+        37,
+        12
+      ],
+      "runtime_bounds": [
+        37,
+        12,
+        475,
+        756
+      ],
+      "head_y": 138
+    }
+  }
+}

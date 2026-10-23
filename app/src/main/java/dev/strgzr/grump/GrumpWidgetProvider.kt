@@ -9,6 +9,7 @@ import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
 import android.widget.RemoteViews
+import android.util.SizeF
 
 class GrumpWidgetProvider : AppWidgetProvider() {
     override fun onUpdate(context: Context, manager: AppWidgetManager, ids: IntArray) {
@@ -50,17 +51,9 @@ class GrumpWidgetProvider : AppWidgetProvider() {
     companion object {
         const val ACTION_POKE = "dev.strgzr.grump.POKE"
 
-        internal fun views(context: Context, id: Int): RemoteViews {
+        internal fun views(context: Context, id: Int, size: SizeF = SizeF(160f, 220f)): RemoteViews {
             val state = GrumpPreferences(context).read(id)
             val expression = Expression.entries[state.expression]
-            val image = when (expression) {
-                Expression.IDLE -> R.drawable.grump_idle
-                Expression.ANNOYED -> R.drawable.grump_annoyed
-                Expression.EXASPERATED -> R.drawable.grump_exasperated
-                Expression.SUSPICIOUS -> R.drawable.grump_suspicious
-                Expression.IMPRESSED -> R.drawable.grump_impressed
-                Expression.UNIMPRESSED -> R.drawable.grump_unimpressed
-            }
             val comment = CommentEngine.comments.getOrNull(state.commentIndex)?.text ?: context.getString(R.string.idle_comment)
             val poke = Intent(context, GrumpWidgetProvider::class.java).apply {
                 action = ACTION_POKE
@@ -70,7 +63,7 @@ class GrumpWidgetProvider : AppWidgetProvider() {
             val pending = PendingIntent.getBroadcast(context, id, poke, PendingIntent.FLAG_UPDATE_CURRENT or PendingIntent.FLAG_IMMUTABLE)
             return RemoteViews(context.packageName, R.layout.grump_widget).apply {
                 setTextViewText(R.id.comment, comment)
-                setImageViewResource(R.id.creature, image)
+                WidgetArtwork.apply(context, this, expression, size)
                 setContentDescription(R.id.creature, context.getString(R.string.grump_reaction, expression.description))
                 setOnClickPendingIntent(R.id.widget_root, pending)
                 setOnClickPendingIntent(R.id.creature, pending)
@@ -78,7 +71,12 @@ class GrumpWidgetProvider : AppWidgetProvider() {
         }
 
         private fun render(context: Context, manager: AppWidgetManager, id: Int) {
-            manager.updateAppWidget(id, views(context, id))
+            val options = manager.getAppWidgetOptions(id)
+            val sizes = options.getParcelableArrayList<SizeF>(AppWidgetManager.OPTION_APPWIDGET_SIZES)
+            val variants = sizes?.takeIf { it.isNotEmpty() }?.distinct()?.take(16)
+                ?: listOf(SizeF(options.getInt(AppWidgetManager.OPTION_APPWIDGET_MIN_WIDTH, 160).toFloat(),
+                    options.getInt(AppWidgetManager.OPTION_APPWIDGET_MAX_HEIGHT, 220).toFloat()))
+            manager.updateAppWidget(id, RemoteViews(variants.associateWith { views(context, id, it) }))
         }
     }
 }

@@ -1,10 +1,10 @@
-# GRUMP — v0.2.0
+# GRUMP — v0.3.0
 
 **General Response Unit for Media Pessimism.** A small, disappointed goblin who lives on your Android home screen and judges humanity when poked.
 
 ## What works
 
-- Native Kotlin home-screen widget, approximately 2×2 cells; resizable in both directions.
+- Native Kotlin home-screen widget, approximately 2×3 cells; resizable in both directions.
 - Approved ink-and-watercolor goblin PNGs: idle, annoyed, exasperated, suspicious, reluctantly impressed, and unimpressed.
 - Tap the creature or bubble for one of **100 unique offline comments**, with no immediate repeats.
 - Technology, politics, corporate nonsense, science, humanity, and existential despair.
@@ -51,20 +51,40 @@ Physical Pixel installation, launcher appearance, resizing, and offline interact
 
 `GrumpWidgetProvider` handles explicit immutable per-widget PendingIntents and RemoteViews. `GrumpPreferences` owns state by widget ID, removes it on deletion, and remaps IDs on restore. `CommentEngine` is a pure local text source, separated from the renderer for later text providers. There are no services, scheduled jobs, or periodic widget updates.
 
-Minimum Android 12 (API 31); compile/target Android 16 (API 36). Android 15–17 are intended, but Android 17 and the Pixel launcher require physical verification. Launcher grid dimensions vary; requested 2×2 sizing is a hint, and the minimum readable dimensions can require more cells on some grids. Bubble text auto-sizes; enlarge the widget if you prefer larger lettering. RTL layout is supported, but text is English only.
+Minimum Android 12 (API 31); compile/target Android 16 (API 36). Android 15–17 are intended, but Android 17 and the Pixel launcher require physical verification. Launcher grid dimensions vary; requested 2×3 sizing is a hint, and the minimum readable dimensions can require more cells on some grids. Bubble text auto-sizes; enlarge the widget if you prefer larger lettering. RTL layout is supported, but text is English only.
 
 The speech bubble stays visible until the next tap. Expressions respond to comment categories, with rare reluctant admiration for three positive comments and no immediate pose repeats. The exasperated portrait supplies the visual sigh; there is no audio or timed animation. Reboot/update retains saved moods; uninstall clears them. Android backup is disabled.
 
 ## Roadmap (not implemented)
 
-- **Future news release:** opt-in RSS feeds, headline cache, categories, offline fallback (not part of v0.2.0 artwork integration).
-- **v0.3:** investigate Gemini Nano via AICore / ML Kit GenAI, checking device support and foreground/API restrictions. Supply short headline-based comments to the renderer; keep local fallback. Cloud inference only with explicit user opt-in.
+- **Future news release:** opt-in RSS feeds, headline cache, categories, offline fallback (not part of v0.3.0 artwork integration).
+- **Future expanded app:** investigate Gemini Nano via AICore / ML Kit GenAI, checking device support and foreground/API restrictions. Supply short headline-based comments to the renderer; keep local fallback. Cloud inference only with explicit user opt-in.
 - **v0.4:** extra expressions, optional idle behaviors, adjustable sarcasm, voice/sighs, more interactions.
 
 Build the smallest reliable version first. Do not overengineer the little bastard.
 
 ## Approved character assets
 
-See [CHARACTER.md](CHARACTER.md) for the frozen appearance and personality, and [art/production/README.md](art/production/README.md) for provenance, alpha checks, alignment, and known source limits. Six 512×512 portraits ship in `drawable-nodpi`; the 512×1024 full-body reference is retained separately from the widget portrait. The original source is preserved in `art/source/`. No generative redraw was used.
+See [CHARACTER.md](CHARACTER.md) for the frozen design and
+[full-body asset record](art/production/full-body/README.md) for source mapping,
+transparency, normalization, and per-pose layout adjustments. Six approved
+512×768 full-body PNGs now appear beside a cream speech bubble with a green
+outline and seamlessly joined tail. All six v0.2 busts and the old full-body
+reference remain available; untouched new uploads are archived separately.
 
-The existing 64 dp character area and speech bubble layout remain unchanged. Fine ink details naturally become smaller at home-screen scale; verify the new portraits on your Pixel after installing. Pixel v0.1 was tested successfully; v0.2.0 still needs physical-device visual acceptance.
+Preferred layout is 2×3 cells, minimum 160×220dp. The character and bubble have
+separate regions to preserve the complete silhouette. Narrow upright poses use
+transparent-gutter crops to avoid shrinking into oversized padding. The forward
+lean is naturally wider and shorter. Text auto-sizes from 7–13sp; longer comments
+in a narrow widget require smaller lettering. Widen the widget if needed.
+
+Android 12+ responsive RemoteViews render the launcher-provided sizes, including
+orientation changes. Offline comment selection, tap behavior, six saved mood IDs,
+and independent widget state are unchanged. No new permissions or background work.
+The future expanded app is not implemented.
+
+CI exports Android-rendered light/dark previews of all six poses at three sizes
+inside `GRUMP-widget-test-reports`. Physical Pixel acceptance is still required:
+check 2×3 placement, all poses, the longest comments, large system text, resizing,
+and independent taps on two widgets. An existing widget may need resizing or
+removal/re-addition to adopt the new preferred footprint.
