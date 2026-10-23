@@ -28,7 +28,9 @@ class GrumpWidgetProvider : AppWidgetProvider() {
         if (manager.getAppWidgetInfo(id)?.provider != ComponentName(context, GrumpWidgetProvider::class.java)) return
         val prefs = GrumpPreferences(context)
         val previous = prefs.read(id)
-        prefs.write(id, WidgetState(CommentEngine.nextIndex(previous.commentIndex), (previous.expression + 1) % 3))
+        val nextIndex = CommentEngine.nextIndex(previous.commentIndex)
+        val expression = Expression.forComment(CommentEngine.comments[nextIndex], Expression.entries[previous.expression])
+        prefs.write(id, WidgetState(nextIndex, expression.ordinal))
         render(context, manager, id)
     }
 
@@ -50,8 +52,15 @@ class GrumpWidgetProvider : AppWidgetProvider() {
 
         internal fun views(context: Context, id: Int): RemoteViews {
             val state = GrumpPreferences(context).read(id)
-            val expression = arrayOf("idle", "annoyed", "exasperated")[state.expression]
-            val image = intArrayOf(R.drawable.grump_idle, R.drawable.grump_annoyed, R.drawable.grump_exasperated)[state.expression]
+            val expression = Expression.entries[state.expression]
+            val image = when (expression) {
+                Expression.IDLE -> R.drawable.grump_idle
+                Expression.ANNOYED -> R.drawable.grump_annoyed
+                Expression.EXASPERATED -> R.drawable.grump_exasperated
+                Expression.SUSPICIOUS -> R.drawable.grump_suspicious
+                Expression.IMPRESSED -> R.drawable.grump_impressed
+                Expression.UNIMPRESSED -> R.drawable.grump_unimpressed
+            }
             val comment = CommentEngine.comments.getOrNull(state.commentIndex)?.text ?: context.getString(R.string.idle_comment)
             val poke = Intent(context, GrumpWidgetProvider::class.java).apply {
                 action = ACTION_POKE
@@ -62,7 +71,7 @@ class GrumpWidgetProvider : AppWidgetProvider() {
             return RemoteViews(context.packageName, R.layout.grump_widget).apply {
                 setTextViewText(R.id.comment, comment)
                 setImageViewResource(R.id.creature, image)
-                setContentDescription(R.id.creature, context.getString(R.string.grump_reaction, expression))
+                setContentDescription(R.id.creature, context.getString(R.string.grump_reaction, expression.description))
                 setOnClickPendingIntent(R.id.widget_root, pending)
                 setOnClickPendingIntent(R.id.creature, pending)
             }

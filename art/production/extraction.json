@@ -1,0 +1,149 @@
+{
+  "idle": {
+    "canvas": [
+      512,
+      512
+    ],
+    "source_component": 29,
+    "source_bbox": [
+      26,
+      178,
+      403,
+      543
+    ],
+    "runtime_bbox": [
+      54,
+      65,
+      469,
+      467
+    ],
+    "source_neck_anchor": 210,
+    "source_shoulder_baseline": 541
+  },
+  "annoyed": {
+    "canvas": [
+      512,
+      512
+    ],
+    "source_component": 35,
+    "source_bbox": [
+      415,
+      194,
+      742,
+      542
+    ],
+    "runtime_bbox": [
+      71,
+      82,
+      431,
+      465
+    ],
+    "source_neck_anchor": 583,
+    "source_shoulder_baseline": 541
+  },
+  "exasperated": {
+    "canvas": [
+      512,
+      512
+    ],
+    "source_component": 32,
+    "source_bbox": [
+      740,
+      190,
+      1088,
+      533
+    ],
+    "runtime_bbox": [
+      38,
+      88,
+      421,
+      465
+    ],
+    "source_neck_anchor": 938,
+    "source_shoulder_baseline": 532
+  },
+  "suspicious": {
+    "canvas": [
+      512,
+      512
+    ],
+    "source_component": 129,
+    "source_bbox": [
+      22,
+      558,
+      405,
+      910
+    ],
+    "runtime_bbox": [
+      45,
+      79,
+      466,
+      466
+    ],
+    "source_neck_anchor": 214,
+    "source_shoulder_baseline": 908
+  },
+  "impressed": {
+    "canvas": [
+      512,
+      512
+    ],
+    "source_component": 128,
+    "source_bbox": [
+      404,
+      556,
+      744,
+      910
+    ],
+    "runtime_bbox": [
+      55,
+      77,
+      429,
+      466
+    ],
+    "source_neck_anchor": 587,
+    "source_shoulder_baseline": 908
+  },
+  "unimpressed": {
+    "canvas": [
+      512,
+      512
+    ],
+    "source_component": 127,
+    "source_bbox": [
+      737,
+      554,
+      1107,
+      910
+    ],
+    "runtime_bbox": [
+      48,
+      75,
+      455,
+      467
+    ],
+    "source_neck_anchor": 926,
+    "source_shoulder_baseline": 908
+  },
+  "fullbody": {
+    "canvas": [
+      512,
+      1024
+    ],
+    "source_component": 1,
+    "source_bbox": [
+      1090,
+      74,
+      1529,
+      969
+    ],
+    "runtime_bbox": [
+      36,
+      64,
+      475,
+      959
+    ],
+    "source_neck_anchor": 0,
+    "source_shoulder_baseline": 0
+  }
+}
